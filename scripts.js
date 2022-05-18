@@ -165,7 +165,6 @@ function FormDraft(r2){
         let i=0;
            for(;i<(r2-isDraft);i++)
         {
-           console.log(r2);
         if( elem ===0 )
         {
             right_elem[i]=document.createElement('th');
@@ -232,8 +231,9 @@ for(let i = 0; i<Math.pow(2, r2); i++)
     //console.log(circle[i]);
 
     button[i].addEventListener("click", function(){
-    circle[i].style.opacity="1";
-    circle[i].style.transitionDuration="0.4s";
+        if(circle[i].style.opacity == "1") 
+        circle[i].style.opacity="0";
+    else circle[i].style.opacity="1";
 });
 }
 FormIntervals(r2);
@@ -324,13 +324,13 @@ enter.addEventListener("click", function(){
     let sections=document.querySelectorAll('.circle');
     let a = [];
     let count=0;
+    let m=0;
     for(let i=0;i<sections.length;i++)
     {
         if(Number(sections[i].style.opacity) == f[r2][fn][1][i]) count++;
-        console.log(Number(sections[i].style.opacity));
-        console.log(f[r2][fn][1][i]);
     }
-    let m=Math.floor(count/(sections.length)*100);
+    m=Math.floor(count/(sections.length)*100);
+    //console.log(count);
 result.innerHTML=`Таблица заполнена правильно на ${m}%.`;
 result.style.backgroundPosition="0 0";
 result.style.backgroundSize='100% 200%';
@@ -342,7 +342,7 @@ result.style.backgroundPosition="0% 100%";
 result.style.backgroundSize='0% 200%';
 enter.textContent="Готово";
 reset_function();
-let fn = Math.floor(getRandomArbitrary(0,6));
+fn = Math.floor(getRandomArbitrary(0,6));
         function_text.src=`${f[r2][fn][0]}`;
 }
 });
