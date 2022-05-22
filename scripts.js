@@ -1,15 +1,12 @@
 
 let n=4; // кол-во переменных
-/*
-//ЗАПИСЬ ЧИСЛА ПЕРЕМЕННЫХ ИЗ INPUT В n
-let inp = document.querySelector('input');
-n=inp.value;
-console.log(n);
+const Form = document.forms[0];
+const FormSelect = Form.Select;
 
-
-
-*/
-let r2=2; // выбранное кол-во переменных
+let r2=2;
+if (localStorage.getItem('var')) {
+    r2=localStorage.getItem('var');
+    FormSelect.value=r2;}
 let isDraft = 0;
 let right_elem=[];
 let right_tr=[];
@@ -25,12 +22,9 @@ xs[5]=document.getElementById('x6');
 const table=document.querySelector('.table');
 const TR = document.querySelector('.table_right > tbody');
 const TRR = document.querySelector('.table_right');
-//TRR.oncontextmenu="return false;";
 const right_rows = document.querySelectorAll('tr');
 FormDraft(r2);
-const Form = document.forms[0];
 const r1=document.querySelectorAll('option');
-const FormSelect = Form.Select;
 
 
     FormSelect.addEventListener("click", changeVar);
@@ -40,25 +34,12 @@ function changeVar(event)
     let temp=FormSelect.value;
     if (temp != r2) {
         r2 = FormSelect.value;
+        localStorage.setItem('var', r2);
         FormDraft(r2);
-        let fn = Math.floor(getRandomArbitrary(0,2));
+        let fn = Math.floor(getRandomArbitrary(0,6));
         function_text.src=`${f[r2][fn][0]}`;
     }
 }
-//n=r2;
-
-//FormSelect.addEventListener()
-
-/*
-const r1=document.querySelectorAll('option');
-for(let k = 0; k<4; k++)
-{
-r1[k].addEventListener("click", function(){
-r2=document.getElementsByTagName("select")[0].value;
-})}*/
-   // var r1=document.getElementsByTagName("select")[0].value;
-   // console.log(r2);
-
 
 //БАЗА ФУНКЦИЙ
 const f= [];
@@ -66,10 +47,6 @@ for(let d=2;d<6;d++)
 {f[d]=[];
 for(let j=0;j<6;j++)
 f[d][j]=[];}
-/*f[2][0][0] =`{(x}_1${'\\'}rightarrow x_2)${'\\'}uparrow(x_1x_2${'\\'}cap x_2)`; // 2 переменные
-f[2][0][1] ="0110";
-f[2][1][0] =`{(x}_1${'\\'}rightarrow x_2)~(x_1${'\\'}cap x_2)`; // 2 переменные
-f[2][1][1] ="0000";*/
 
 f[2][0][0] ='img/functions/2/1.jpg'; // 2 переменные
 f[2][0][1] ="1111";
@@ -151,13 +128,9 @@ let table_sectt = [Math.pow(2, n)];
 
     stolb=Math.pow(2, (Math.floor(r2/2)+(r2%2)));
     table.style.gridTemplateColumns="repeat( " + stolb + ", 1fr)";
-     //console.log(table_sect);
 };
 }
-//window.onload = FormKarno(2);
-//console.log(element.stylegridTemplateColumns);
 function FormDraft(r2){
-    //let m= right_rows.length;
     if(isDraft===r2) {}
     else 
     for( let elem = 0; elem < right_rows.length; elem++) {
@@ -189,9 +162,6 @@ function FormDraft(r2){
             {
                 right_elem[i].textContent="x₅";
             }
-            /*else{
-                right_elem[i].textContent="ffff";
-            }*/
         }
         else{
             right_elem[i]=document.createElement('td');
@@ -215,7 +185,6 @@ function FormDraft(r2){
     right_rows[elem].appendChild(right_elem[i]);
     }
     isDraft=r2;
-  //  let e=5;
     while(TR.children.length > 5)
 {TR.removeChild(TR.lastChild);
 }
@@ -228,8 +197,6 @@ let button=document.querySelectorAll('.section');
 let circle=document.querySelectorAll('.circle');
 for(let i = 0; i<Math.pow(2, r2); i++)
 {
-    //console.log(circle[i]);
-
     button[i].addEventListener("click", function(){
         if(circle[i].style.opacity == "1") 
         circle[i].style.opacity="0";
@@ -255,39 +222,26 @@ for (let elem of elements) {
 
 button1.addEventListener("click", function(){
     let section = [];
-//    var TR = document.querySelector('.table_right > tbody');
 var line = document.createElement('tr');
 TR.appendChild(line);
 for(let i = 0; i<=r2; i++)
 {
-   /* section[i].style.display="flex";
-section[i].style.justifyContent="center";
-section[i].style.alignItems="center";*/
 section[i]=document.createElement('td');
 line.appendChild(section[i]);
 
 section[i].addEventListener("click", function(){
     section[i].textContent ="1";
     section[i].style.color="tomato";
-    /*elem.style.display="flex";
-    elem.style.justifyContent="center";
-    elem.style.alignItems="center";*/
 });
 section[i].addEventListener("contextmenu", function(){
     section[i].textContent ="0";
     section[i].style.color="#33DBFF";
- /*elem.style.display="flex";
- elem.style.justifyContent="center";
- elem.style.alignItems="center";*/
-
 }
 );
-   // button1.style.backgroundColor="white";
 }
 });
 
 // Кнопка "Сброс"
-
 const reset = document.getElementById('reset');
 function reset_function(){
     let circle=document.querySelectorAll('.circle');
@@ -330,7 +284,6 @@ enter.addEventListener("click", function(){
         if(Number(sections[i].style.opacity) == f[r2][fn][1][i]) count++;
     }
     m=Math.floor(count/(sections.length)*100);
-    //console.log(count);
 result.innerHTML=`Таблица заполнена правильно на ${m}%.`;
 result.style.backgroundPosition="0 0";
 result.style.backgroundSize='100% 200%';
@@ -346,4 +299,3 @@ fn = Math.floor(getRandomArbitrary(0,6));
         function_text.src=`${f[r2][fn][0]}`;
 }
 });
-
