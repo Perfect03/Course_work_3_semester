@@ -244,9 +244,14 @@ section[i].addEventListener("contextmenu", function(){
 // Кнопка "Сброс"
 const reset = document.getElementById('reset');
 function reset_function(){
-    let circle=document.querySelectorAll('.circle');
-    circle.forEach(element => {
+    let circles=document.querySelectorAll('.circle');
+    circles.forEach(element => {
         element.style.opacity="0";
+    });
+    let sections=document.querySelectorAll('.section');
+    sections.forEach(element => {
+        element.style.transition='0.5s';
+        element.style.border='1px solid #000';
     });
     result.backgroundPosition="0 100%";
 }
@@ -275,15 +280,22 @@ let enter=document.getElementById('enter');
 enter.addEventListener("click", function(){
     if(enter.textContent=="Готово")
     {
-    let sections=document.querySelectorAll('.circle');
+    let circles=document.querySelectorAll('.circle');
+    let sections=document.querySelectorAll('.section');
     let a = [];
     let count=0;
     let m=0;
-    for(let i=0;i<sections.length;i++)
+    for(let i=0;i<circles.length;i++)
     {
-        if(Number(sections[i].style.opacity) == f[r2][fn][1][i]) count++;
+        if(Number(circles[i].style.opacity) == f[r2][fn][1][i]) 
+        {count++;
+            sections[i].style.border='8px solid rgb(0, 255, 0)';
+        }
+        else {
+            sections[i].style.border='8px solid rgb(255, 0, 0)';
+        }
     }
-    m=Math.floor(count/(sections.length)*100);
+    m=Math.floor(count/(circles.length)*100);
 result.innerHTML=`Таблица заполнена правильно на ${m}%.`;
 result.style.backgroundPosition="0 0";
 result.style.backgroundSize='100% 200%';
